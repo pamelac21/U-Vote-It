@@ -1,5 +1,5 @@
-const express = require('express');
 const mysql = require('mysql2');
+const express = require('express');
 require('dotenv').config();
 const inputCheck = require('./utils/inputCheck');
 
@@ -23,9 +23,13 @@ const db = mysql.createConnection(
     console.log('Connected to the election database.')
   );
 
-// Get all candidates (API endpoint) 'http://localhost:3001/api/candidates'
+// Get all candidates and their party (API endpoint) 'http://localhost:3001/api/candidates'
 app.get('/api/candidates', (req, res) => {
-  const sql = `SELECT * FROM candidates`;
+    const sql = `SELECT candidates.*, parties.name 
+    AS party_name 
+    FROM candidates 
+    LEFT JOIN parties 
+    ON candidates.party_id = parties.id`;
 
   db.query(sql, (err, rows) => {
     if (err) {
@@ -39,9 +43,14 @@ app.get('/api/candidates', (req, res) => {
   });
 });
 
-// Get a single candidate 'http://localhost:3001/api/candidate/1'
+// Get a single candidate with party 'http://localhost:3001/api/candidate/1'
 app.get('/api/candidate/:id', (req, res) => {
-    const sql = `SELECT * FROM candidates WHERE id = ?`;
+    const sql = `SELECT candidates.*, parties.name 
+             AS party_name 
+             FROM candidates 
+             LEFT JOIN parties 
+             ON candidates.party_id = parties.id 
+             WHERE candidates.id = ?`;
     const params = [req.params.id];
   
     db.query(sql, params, (err, row) => {
@@ -89,7 +98,7 @@ app.post('/api/candidate', ({ body }, res) => {
       res.status(400).json({ error: errors });
       return;
     }
-    
+
     const sql = `INSERT INTO candidates (first_name, last_name, industry_connected)
     VALUES (?,?,?)`;
   const params = [body.first_name, body.last_name, body.industry_connected];
