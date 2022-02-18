@@ -1,0 +1,27 @@
+{
+  "name": "u-vote-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pamelac21/empty2.git"
+  },
+  "author": "Pamela Cleveland",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pamelac21/empty2/issues"
+  },
+  "homepage": "https://github.com/pamelac21/empty2#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
