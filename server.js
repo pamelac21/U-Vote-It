@@ -30,6 +30,7 @@ const db = mysql.createConnection(
     console.log('Connected to the election database.')
   );
 
+  // Query db to test mysql connection
   db.query(`SELECT * FROM candidates`, (err, rows) => {
     console.log(rows);
   });
