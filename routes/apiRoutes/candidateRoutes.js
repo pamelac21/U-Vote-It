@@ -45,7 +45,7 @@ router.get('/candidate/:id', (req, res) => {
     });
   });
 
-// Create a candidate
+//POST Create a candidate
 router.post('/candidate', ({ body }, res) => {
     // Candidate is allowed not to be affiliated with a party
     const errors = inputCheck(
@@ -80,7 +80,7 @@ router.post('/candidate', ({ body }, res) => {
     });
   });
 
-// Update a candidate's party
+//PUT Update a candidate's party
 router.put('/candidate/:id', (req, res) => {
     // Candidate is allowed to not have party affiliation
     const errors = inputCheck(req.body, 'party_id');
@@ -111,7 +111,7 @@ router.put('/candidate/:id', (req, res) => {
   });
   
 
-// Delete a candidate http://localhost:3001/api/candidate/1
+// DELETE a candidate http://localhost:3001/api/candidate/1
 router.delete('/candidate/:id', (req, res) => {
     const sql = `DELETE FROM candidates WHERE id = ?`;
     const params = [req.params.id];
